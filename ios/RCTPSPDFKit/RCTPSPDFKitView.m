@@ -167,6 +167,10 @@
   [self onStateChangedForPDFViewController:pdfController pageView:pageView pageAtIndex:pageIndex];
 }
 
+- (void)pdfViewController:(PSPDFViewController *)pdfController didEndDisplayingPageView:(PSPDFPageView *)pageView forPageAtIndex:(NSInteger)pageIndex {
+  [self onStateChangedForPDFViewController:pdfController pageView:pageView pageAtIndex:pageIndex];
+}
+
 - (void)pdfViewController:(PSPDFViewController *)pdfController didChangeDocument:(nullable PSPDFDocument *)document {
   VALIDATE_DOCUMENT(document)
 }
@@ -455,7 +459,7 @@
     }
     
     self.onStateChanged(@{@"documentLoaded" : @(isDocumentLoaded),
-                          @"currentPageIndex" : @(pageIndex),
+                          @"currentPageIndex" : @(pdfController.pageIndex),
                           @"pageCount" : @(pageCount),
                           @"annotationCreationActive" : @(isAnnotationToolBarVisible),
                           @"annotationEditingActive" : @(hasSelectedAnnotations),
