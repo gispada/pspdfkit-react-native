@@ -24,8 +24,8 @@ class PSPDFKitView extends React.Component {
     if (Platform.OS === "ios" || Platform.OS === "android") {
       const onCloseButtonPressedHandler = this.props.onCloseButtonPressed
         ? (event) => {
-            this.props.onCloseButtonPressed(event.nativeEvent);
-          }
+          this.props.onCloseButtonPressed(event.nativeEvent);
+        }
         : null;
       return (
         <RCTPSPDFKitView
@@ -505,6 +505,17 @@ class PSPDFKitView extends React.Component {
     }
   };
 
+  setPageIndex = function (pageIndex, animated = false) {
+    if (Platform.OS === "android") {
+    } else if (Platform.OS === "ios") {
+      return NativeModules.PSPDFKitViewManager.setPageIndex(
+        pageIndex,
+        animated,
+        findNodeHandle(this.refs.pdfView)
+      );
+    }
+  };
+
   _getViewManagerConfig = (viewManagerName) => {
     const version = NativeModules.PlatformConstants.reactNativeVersion.minor;
     if (version >= 58) {
@@ -531,7 +542,7 @@ PSPDFKitView.propTypes = {
   /**
    * Page index of the document that will be shown.
    */
-  pageIndex: PropTypes.number,
+  // pageIndex: PropTypes.number,
   /**
    * Controls wheter a navigation bar is created and shown or not. Defaults to showing a navigation bar (false).
    *
