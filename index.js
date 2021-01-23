@@ -507,6 +507,11 @@ class PSPDFKitView extends React.Component {
 
   setPageIndex = function (pageIndex, animated = false) {
     if (Platform.OS === "android") {
+      UIManager.dispatchViewManagerCommand(
+        findNodeHandle(this.refs.pdfView),
+        UIManager.RCTPSPDFKitView.Commands.setPageIndex,
+        [pageIndex, animated]
+      );
     } else if (Platform.OS === "ios") {
       return NativeModules.PSPDFKitViewManager.setPageIndex(
         pageIndex,

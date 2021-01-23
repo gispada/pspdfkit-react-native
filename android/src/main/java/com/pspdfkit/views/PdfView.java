@@ -113,6 +113,7 @@ public class PdfView extends FrameLayout {
     private Disposable documentOpeningDisposable;
     private PdfDocument document;
     private int pageIndex = 0;
+    private boolean pageIndexAnimated = false;
 
     private boolean isActive = true;
 
@@ -246,8 +247,9 @@ public class PdfView extends FrameLayout {
             });
     }
 
-    public void setPageIndex(int pageIndex) {
+    public void setPageIndex(int pageIndex, boolean animated) {
         this.pageIndex = pageIndex;
+        this.pageIndexAnimated = animated;
         setupFragment();
     }
 
@@ -399,7 +401,7 @@ public class PdfView extends FrameLayout {
             }
 
             if (pdfFragment.getDocument() != null) {
-                pdfFragment.setPageIndex(pageIndex, true);
+                pdfFragment.setPageIndex(pageIndex, pageIndexAnimated);
             }
 
             fragment = pdfFragment;

@@ -60,6 +60,7 @@ public class ReactPdfViewManager extends ViewGroupManager<PdfView> {
     public static final int COMMAND_SET_FORM_FIELD_VALUE = 9;
     public static final int COMMAND_REMOVE_ANNOTATION = 10;
     public static final int COMMAND_GET_ALL_ANNOTATIONS = 11;
+    public static final int COMMAND_SET_PAGE_INDEX = 100;
 
     private CompositeDisposable annotationDisposables = new CompositeDisposable();
 
@@ -110,6 +111,7 @@ public class ReactPdfViewManager extends ViewGroupManager<PdfView> {
         commandMap.put("setFormFieldValue", COMMAND_SET_FORM_FIELD_VALUE);
         commandMap.put("removeAnnotation", COMMAND_REMOVE_ANNOTATION);
         commandMap.put("getAllAnnotations", COMMAND_GET_ALL_ANNOTATIONS);
+        commandMap.put("setPageIndex", COMMAND_SET_PAGE_INDEX);
         return commandMap;
     }
 
@@ -129,10 +131,10 @@ public class ReactPdfViewManager extends ViewGroupManager<PdfView> {
         view.setDocument(document);
     }
 
-    @ReactProp(name = "pageIndex")
+    /* @ReactProp(name = "pageIndex")
     public void setPageIndex(PdfView view, int pageIndex) {
         view.setPageIndex(pageIndex);
-    }
+    } */
 
     @ReactProp(name = "disableDefaultActionForTappedAnnotations")
     public void setDisableDefaultActionForTappedAnnotations(PdfView view, boolean disableDefaultActionForTappedAnnotations) {
@@ -284,6 +286,9 @@ public class ReactPdfViewManager extends ViewGroupManager<PdfView> {
                         });
                     annotationDisposables.add(annotationDisposable);
                 }
+                break;
+            case COMMAND_SET_PAGE_INDEX:
+                root.setPageIndex(args.getInt(0), args.getBoolean(1));
                 break;
         }
     }
