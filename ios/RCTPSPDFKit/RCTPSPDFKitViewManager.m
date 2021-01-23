@@ -35,7 +35,7 @@ RCT_CUSTOM_VIEW_PROPERTY(document, PSPDFDocument, RCTPSPDFKitView) {
   }
 }
 
-RCT_REMAP_VIEW_PROPERTY(pageIndex, pdfController.pageIndex, NSUInteger)
+// RCT_REMAP_VIEW_PROPERTY(pageIndex, pdfController.pageIndex, NSUInteger)
 
 RCT_CUSTOM_VIEW_PROPERTY(configuration, PSPDFConfiguration, RCTPSPDFKitView) {
   if (json) {
@@ -281,6 +281,13 @@ RCT_EXPORT_METHOD(getRightBarButtonItemsForViewMode:(nullable NSString *)viewMod
       reject(@"error", @"Failed to get the right bar button items.", nil);
     }
   });
+}
+
+RCT_EXPORT_METHOD(setPageIndex:(NSUInteger)pageIndex animated:(BOOL)animated reactTag:(nonnull NSNumber *)reactTag) {
+	dispatch_async(dispatch_get_main_queue(), ^{
+		RCTPSPDFKitView *component = (RCTPSPDFKitView *)[self.bridge.uiManager viewForReactTag:reactTag];
+		[component.pdfController setPageIndex:pageIndex animated:animated];
+	});
 }
 
 - (UIView *)view {
