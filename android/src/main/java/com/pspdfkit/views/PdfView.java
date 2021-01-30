@@ -498,7 +498,8 @@ public class PdfView extends FrameLayout {
         pdfUiFragmentGetter.onNext(Collections.emptyList());
     }
 
-    void manuallyLayoutChildren() {
+    // Metodo esposto per essere invocato all'occorrenza da JS, non più automaticamente a ogni frame
+    public void manuallyLayoutChildren() {
         for (int i = 0; i < getChildCount(); i++) {
             View child = getChildAt(i);
             child.measure(MeasureSpec.makeMeasureSpec(getMeasuredWidth(), MeasureSpec.EXACTLY),

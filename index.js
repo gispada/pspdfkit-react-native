@@ -509,7 +509,8 @@ class PSPDFKitView extends React.Component {
     if (Platform.OS === "android") {
       UIManager.dispatchViewManagerCommand(
         findNodeHandle(this.refs.pdfView),
-        UIManager.RCTPSPDFKitView.Commands.setPageIndex,
+        this._getViewManagerConfig("RCTPSPDFKitView").Commands
+          .setPageIndex,
         [pageIndex, animated]
       );
     } else if (Platform.OS === "ios") {
@@ -517,6 +518,17 @@ class PSPDFKitView extends React.Component {
         pageIndex,
         animated,
         findNodeHandle(this.refs.pdfView)
+      );
+    }
+  };
+
+  triggerChildrenLayout = function () {
+    if (Platform.OS === 'android') {
+      UIManager.dispatchViewManagerCommand(
+        findNodeHandle(this.refs.pdfView),
+        this._getViewManagerConfig("RCTPSPDFKitView").Commands
+          .triggerChildrenLayout,
+        []
       );
     }
   };
