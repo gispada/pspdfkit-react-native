@@ -23,15 +23,9 @@ class PSPDFKitView extends React.Component {
   render() {
     if (Platform.OS === "ios" || Platform.OS === "android") {
       const onCloseButtonPressedHandler = this.props.onCloseButtonPressed
-<<<<<<< HEAD
-        ? event => {
-            this.props.onCloseButtonPressed(event.nativeEvent);
-          }
-=======
         ? (event) => {
           this.props.onCloseButtonPressed(event.nativeEvent);
         }
->>>>>>> a18dcb2... Imperatively set pageIndex on iOS
         : null;
       return (
         <RCTPSPDFKitView
