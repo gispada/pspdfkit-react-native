@@ -54,6 +54,7 @@ public class ReactPdfViewManager extends ViewGroupManager<PdfView> {
     public static final int COMMAND_REMOVE_ANNOTATION = 10;
     public static final int COMMAND_GET_ALL_ANNOTATIONS = 11;
     public static final int COMMAND_SET_PAGE_INDEX = 100;
+    public static final int COMMAND_TRIGGER_CHILDREN_LAYOUT = 101;
 
     private CompositeDisposable annotationDisposables = new CompositeDisposable();
 
@@ -105,6 +106,7 @@ public class ReactPdfViewManager extends ViewGroupManager<PdfView> {
         commandMap.put("removeAnnotation", COMMAND_REMOVE_ANNOTATION);
         commandMap.put("getAllAnnotations", COMMAND_GET_ALL_ANNOTATIONS);
         commandMap.put("setPageIndex", COMMAND_SET_PAGE_INDEX);
+        commandMap.put("triggerChildrenLayout", COMMAND_TRIGGER_CHILDREN_LAYOUT);
         return commandMap;
     }
 
@@ -272,6 +274,9 @@ public class ReactPdfViewManager extends ViewGroupManager<PdfView> {
                 break;
             case COMMAND_SET_PAGE_INDEX:
                 root.setPageIndex(args.getInt(0), args.getBoolean(1));
+                break;
+            case COMMAND_TRIGGER_CHILDREN_LAYOUT:
+                root.manuallyLayoutChildren();
                 break;
         }
     }
