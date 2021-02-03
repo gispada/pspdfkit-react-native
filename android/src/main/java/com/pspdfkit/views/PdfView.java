@@ -143,7 +143,13 @@ public class PdfView extends FrameLayout {
         Choreographer.getInstance().postFrameCallback(new Choreographer.FrameCallback() {
             @Override
             public void doFrame(long frameTimeNanos) {
-                manuallyLayoutChildren();
+                /*
+                 * Su Android di fascia medio-bassa il ricalcolo del layout a ogni frame rallenta il visualizzatore PDF
+                 * Senza il ricalcolo, diverse parti dell'interfaccia non sono aggiornate correttamente
+                 * Valutare se usando solo il visualizzatore senza funzionalità extra si può fare a meno di ricalcolarlo a ogni frame
+                 * Vedere punto 2 in https://github.com/PSPDFKit/react-native#native-ui-component-1
+                 */
+                // manuallyLayoutChildren();
                 getViewTreeObserver().dispatchOnGlobalLayout();
                 if (isActive) {
                     Choreographer.getInstance().postFrameCallback(this);
