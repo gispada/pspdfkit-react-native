@@ -175,6 +175,13 @@
   VALIDATE_DOCUMENT(document)
 }
 
+- (NSArray<PSPDFMenuItem *> *)pdfViewController:(PSPDFViewController *)pdfController shouldShowMenuItems:(NSArray<PSPDFMenuItem *> *)menuItems atSuggestedTargetRect:(CGRect)rect forAnnotations:(NSArray<PSPDFAnnotation *> *)annotations inRect:(CGRect)annotationRect onPageView:(PSPDFPageView *)pageView {
+  // Filter out the "Copy" menu item.
+  return [menuItems filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(PSPDFMenuItem *menuItem, NSDictionary *bindings) {
+    return NO;
+  }]];
+}
+
 #pragma mark - PSPDFFlexibleToolbarContainerDelegate
 
 - (void)flexibleToolbarContainerDidShow:(PSPDFFlexibleToolbarContainer *)container {
